@@ -5,12 +5,14 @@ from sqlalchemy.orm import Session
 from app.db import engine, SessionLocal
 from app.models import Base, Note, User
 from app.schemas import NoteCreate, NoteOut, UserCreate, Token
-from app.security import verify_password # pyright: ignore[reportMissingImports]
+from app.security import verify_password, hash_password
 from app.auth import create_access_token, decode_access_token
 
 app = FastAPI()
 
-Base.metadata.create_all(bind=engine)
+@app.on_event("startup")
+def on_startup():
+    Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()
@@ -25,6 +27,9 @@ def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
+    if not credentials:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
     payload = decode_access_token(credentials.credentials)
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid token")
@@ -40,7 +45,6 @@ def require_admin(user: User = Depends(get_current_user)):
     if user.role != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     return user
-
 
 def get_optional_admin(
     credentials: HTTPAuthorizationCredentials | None = Depends(security),
@@ -64,12 +68,9 @@ def get_optional_admin(
 
     return user
 
-
 @app.get("/health")
 def health():
     return {"status": "ok"}
-
-from app.security import hash_password
 
 @app.post("/users")
 def create_user(
@@ -94,8 +95,6 @@ def create_user(
     db.refresh(db_user)
 
     return {"id": db_user.id, "email": db_user.email}
-
-
 
 @app.post("/login", response_model=Token)
 def login(user: UserCreate, db: Session = Depends(get_db)):
