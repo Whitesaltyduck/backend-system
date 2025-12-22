@@ -1,9 +1,17 @@
 from datetime import datetime, timedelta
+import os
 from jose import jwt, JWTError
+from dotenv import load_dotenv
 
-SECRET_KEY = "dev-secret-change-later"
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
+
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY not set")
 
 def create_access_token(data: dict):
     to_encode = data.copy()
