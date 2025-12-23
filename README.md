@@ -37,6 +37,7 @@ The project is intentionally **closed** after achieving learning goals to avoid 
 
 <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/2bbd9ab9-2d3c-4891-bded-b8fb5da33005" />
 
+*Figure 1: High-level architecture showing the flow from GitHub (source of truth) through GitHub Actions CI/CD into Azure App Service hosting a FastAPI application, with PostgreSQL as an external managed dependency used during development.*
 
 ### Diagram Description
 The system follows a standard DevOps delivery flow:
@@ -53,13 +54,18 @@ The system follows a standard DevOps delivery flow:
 
 <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/1a73561b-fa71-4c03-8107-6a4cdc2000eb" />
 
+*Figure 2: Logical flow illustrating how a source code push to GitHub triggers GitHub Actions pipelines, resulting in application deployment to Azure App Service and execution within the FastAPI runtime.*
+
 > **Key principle learned:**  
 > A successful pipeline deploys artifacts — it does **not** guarantee a healthy runtime.
 
 ---
 
 ## Repository Structure
+
 <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/71b25e64-7e26-4318-8a98-ba13080d6d09" />
+
+*Figure 3: Repository structure highlighting separation of concerns between application code (`app/`), infrastructure as code (`infra/` using Bicep), and CI/CD pipelines (`.github/workflows`).*
 
 ---
 
@@ -75,7 +81,9 @@ Infrastructure is defined using **Bicep** to ensure reproducibility and controll
 - infra/appservice.bicep
 
 ### Deployment Command
+```bash
 - az deployment group create --resource-group rg-backend-iac --template-file infra/appservice.bicep
+```
 
 
 Important distinction:
