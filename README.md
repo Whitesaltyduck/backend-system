@@ -35,8 +35,8 @@ The project is intentionally **closed** after achieving learning goals to avoid 
 
 ## High-Level Architecture
 
-### Diagram Placeholder
-![alt text](image.png)
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/2bbd9ab9-2d3c-4891-bded-b8fb5da33005" />
+
 
 ### Diagram Description
 The system follows a standard DevOps delivery flow:
@@ -51,7 +51,7 @@ The system follows a standard DevOps delivery flow:
 
 ## Logical Flow
 
-![alt text](image-1.png)
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/1a73561b-fa71-4c03-8107-6a4cdc2000eb" />
 
 > **Key principle learned:**  
 > A successful pipeline deploys artifacts — it does **not** guarantee a healthy runtime.
@@ -59,8 +59,7 @@ The system follows a standard DevOps delivery flow:
 ---
 
 ## Repository Structure
-![alt text](image-2.png)
-
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/71b25e64-7e26-4318-8a98-ba13080d6d09" />
 
 ---
 
@@ -76,9 +75,7 @@ Infrastructure is defined using **Bicep** to ensure reproducibility and controll
 - infra/appservice.bicep
 
 ### Deployment Command
-az deployment group create
---resource-group rg-backend-iac
---template-file infra/appservice.bicep
+- az deployment group create --resource-group rg-backend-iac --template-file infra/appservice.bicep
 
 
 Important distinction:
