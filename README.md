@@ -5,6 +5,17 @@ This project was built to gain **hands-on experience with Azure DevOps (AZ-400)*
 The objective was not application complexity, but understanding **how real delivery systems behave**, how they fail, and how they are responsibly operated and decommissioned.
 
 ---
+## Problem Statement
+
+Most cloud backend failures are caused not by application logic,
+but by misconfigured CI/CD pipelines, identity mismatches,
+environment drift, and incorrect assumptions about cloud runtimes.
+
+This project investigates those failure modes by building,
+deploying, breaking, debugging, and decommissioning a
+production-style backend system on Azure.
+
+---
 
 ## Project Intent
 
