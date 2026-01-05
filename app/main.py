@@ -2,17 +2,13 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
-from app.db import engine, SessionLocal
-from app.models import Base, Note, User
+from app.db import SessionLocal
+from app.models import Note, User
 from app.schemas import NoteCreate, NoteOut, UserCreate, Token
 from app.security import verify_password, hash_password
 from app.auth import create_access_token, decode_access_token
 
 app = FastAPI()
-
-@app.on_event("startup")
-def on_startup():
-    Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()
