@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
+from sqlalchemy import text
+
 
 from app.db import SessionLocal
 from app.models import Note, User
@@ -64,9 +66,19 @@ def get_optional_admin(
 
     return user
 
+
 @app.get("/health")
-def health():
-    return {"status": "ok"}
+def health(db: Session = Depends(get_db)):
+    try:
+        db.execute(text("SELECT 1"))
+    except Exception:
+        raise HTTPException(status_code=503, detail="Database unavailable")
+
+    return {
+        "status": "ok",
+        "database": "reachable"
+    }
+
 
 @app.post("/users")
 def create_user(
