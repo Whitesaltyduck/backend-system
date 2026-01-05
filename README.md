@@ -192,6 +192,17 @@ The architecture supports external managed databases even though none are curren
 
 ---
 
+
+## Database Lifecycle
+
+Database schema creation and migration are intentionally treated as
+bootstrap concerns and are not executed during application startup.
+
+This avoids implicit infrastructure mutation during deploys or restarts
+and mirrors production-grade operational discipline.
+
+---
+
 ## Monitoring & Logging
 
 Primary feedback mechanisms:
