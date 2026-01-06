@@ -182,7 +182,15 @@ GitHub Actions pipelines were used to:
 
 - YAML-based pipelines  
 - Separation between CI and deploy stages  
-- Deployment gated on CI correctness  
+- Deployment gated on CI correctness
+
+### Deployment Failure Handling
+
+Deployment is expected to fail when required cloud resources or secrets
+are not present.
+
+This behavior confirms that the pipeline fails explicitly at the
+infrastructure boundary rather than masking configuration errors.
 
 > **Key insight:**  
 > CI/CD confirms deployability — not runtime correctness.
