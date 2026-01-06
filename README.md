@@ -186,11 +186,12 @@ GitHub Actions pipelines were used to:
 
 ### Deployment Failure Handling
 
-Deployment is expected to fail when required cloud resources or secrets
-are not present.
+Deployment is expected to fail when required cloud infrastructure
+or secrets are not present.
 
 This behavior confirms that the pipeline fails explicitly at the
-infrastructure boundary rather than masking configuration errors.
+infrastructure boundary rather than masking configuration errors
+or reporting false success.
 
 > **Key insight:**  
 > CI/CD confirms deployability — not runtime correctness.
